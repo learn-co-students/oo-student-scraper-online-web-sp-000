@@ -28,21 +28,21 @@ class Scraper
 
     profile_page = Nokogiri::HTML(open(profile_url))
 
-    profile_page.css("div.social-icon-container a").each do |social_sites|
-      social_sites.attributes("href").each do |social|
-        # binding.pry
-        social
+    links = profile_page.css("div.social-icon-container a").collect{ |social_sites| social_sites.attribute('href').value }
+    links.each do |link|
+      if link.include? "twitter"
+        student[:twitter] = link
+      elsif link.include? "linkedin"
+        student[:linkedin] = link
+      elsif link.include? "github"
+        student[:github] = link
+      else
+        student[:blog] = link
       end
     end
+    student[:profile_quote] = profile_page.css(".profile-quote").text
+    student[:bio] = profile_page.css(".bio-content.content-holder .description-holder p").text
+    student
+
   end
-
-  # => {:twitter=>"http://twitter.com/flatironschool",
-      #   :linkedin=>"https://www.linkedin.com/in/flatironschool",
-      #   :github=>"https://github.com/learn-co,
-      #   :blog=>"http://flatironschool.com",
-      #   :profile_quote=>"\"Forget safety. Live where you fear to live. Destroy your reputation. Be notorious.\" - Rumi",
-      #   :bio=> "I'm a school"
-      #  }
-
-
 end
