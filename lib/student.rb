@@ -6,7 +6,7 @@ class Student
 
   def initialize(student_hash)
       student_hash.each do |key, val|
-          #send calls the method in the first parameter, and passes the rest of the parameters as arguments
+          ##stackoverflow.com/questions/973452/calling-self-send-iteratively-on-a-hash-argument-to-initialize
           self.send "#{key}=", val
       end
       @@all << self
