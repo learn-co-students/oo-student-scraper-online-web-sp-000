@@ -7,12 +7,12 @@ class Scraper
     html = File.read(index_url)
     index_page = Nokogiri::HTML(html)
     students = []
-    index_page.css("").each do |student|
+    index_page.css("div.student-card").each do |student|
       this_student = {}
-      this_student[:name]
-      this_student[:location]
-      this_student[:profile_url]
-      @@students << this_student
+      this_student[:name] = student.css("h4.student-name").text
+      this_student[:location] = student.css("p.student-location").text
+      this_student[:profile_url] = student.css("a").attribute("href").value
+      students << this_student
     end
     students
   end
