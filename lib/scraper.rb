@@ -18,7 +18,16 @@ class Scraper
   end
 
   def self.scrape_profile_page(profile_url)
-
+    html = File.read(profile_url)
+    profile_page = Nokogiri::HTML(html)
+    student_details = {}
+    student_details[:twitter] =
+    student_details[:linkedin] =
+    student_details[:github] =
+    student_details[:blog] =
+    student_details[:profile_quote] = 
+    student_details[:bio] =
+    student_details
   end
 
 end
