@@ -3,18 +3,19 @@ require 'pry'
 require 'nokogiri'
 
 class Scraper
-  attr_accessor 
+  attr_accessor :students
 
   def self.scrape_index_page(index_url)
+    #previous
+    # index_url = File.read('fixtures/student-site/index.html')
+    # profiles_page = Nokogiri::HTML(index_url)
     
-    index_url = File.read('fixtures/student-site/index.html')
-    profiles_page = Nokogiri::HTML(index_url)
+    html = File.read(index_url)
+      profiles_page = Nokogiri::HTML(html)
     
-    students = []
+    @students = []
     profile_hash = {}
     #find name, location and profile url
-      
-      
       #each profile lives here
       #profiles.css("div.student-card")
       
@@ -22,65 +23,47 @@ class Scraper
         
         profile_hash = {:name => profile.css("div.card-text-container h4.student-name").text, :location => profile.css("div.card-text-container p.student-location").text, :profile_url => profile.css("a").attribute("href").value}
         
-        students << profile_hash
-        
-        
+        @students << profile_hash
       end 
       
-      
-    return students
-    
+    return @students
     
   end
 
   def self.scrape_profile_page(profile_url)
     
-    #this retrieves students array from other method 
-    students_overall = self.scrape_index_page(profile_url)
+      hash = {}
+      social_links = []
+      html = File.read(profile_url)
+      student_attributes = Nokogiri::HTML(html)
+     
+     
+     student_attributes.xpath('//div[@class="social-icon-container"]/a').map { |link| social_links << link['href'] }
+     social_links.select do |link_with_key|
+         if link_with_key.include?('twitter') == true
+          hash[:twitter] = link_with_key
+         
+         elsif link_with_key.include?('linkedin') == true
+          hash[:linkedin] = link_with_key
+         
+         elsif link_with_key.include?('github') == true
+          hash[:github] = link_with_key
+         
+         else 
+          hash[:blog] = link_with_key
+       end
+      end
+      
+      quote = student_attributes.css("div.profile-quote").text
+      hash[:profile_quote] = quote
+      
+      student_bio = student_attributes.css("div.description-holder p").text
+      hash[:bio] = student_bio
+      
+     
+    #end 
     #binding.pry
-    
-    #this isolates student urls into new array
-    i = 0 
-    just_url = []
-   while i < students_overall.length 
-      url = students_overall[i][:profile_url] 
-      i += 1 
-      just_url << url
-   end 
-   
-   #creates array each needed individual url for each student 
-   pages_prefix = 'fixtures/student-site/students/'
-    individual_urls = [] 
-    just_url.each do |modify| 
-        indiv_student = pages_prefix + "#{modify}" 
-        
-        individual_urls << indiv_student
-        
-      end 
-      
-      
-      #needs to look for linkedin, github, blog, quote, bio
-      j = 0 
-      
-      while j < individual_urls.length 
-       
-      profile_url = File.read(individual_urls[j])
-      student_attributes = Nokogiri::HTML(profile_url)
-        
-
-  
- 
-    # profile_url = File.read('fixtures/student-site/students/')
-    # individual_page = Nokogiri::HTML(profile_url)
-    
-    # student_details = {}
-    
-    
-    
-    
-    
-    
-    
+    return hash
   end
 
 end
