@@ -19,7 +19,26 @@ class Scraper
   end
 
   def self.scrape_profile_page(profile_url)
+    student = {}
+    social_medias = ["github", "twitter", "linkedin"]
     
+    html = File.read(profile_url)
+    index = Nokogiri::HTML(html)
+    
+    index.css(".social-icon-container").xpath("//div/a/@href").each do |social|
+      social_medias.each do |social_media|
+        if social.value.include?(social_media)
+          student[social_media.to_sym] = social.value
+        else
+          student[:blog] = social.value unless social_medias.any? {|s| social.value.include?(s)}
+        end
+      end
+    end
+      
+    student[:profile_quote] = index.css(".profile-quote").text
+    student[:bio] = index.css(".description-holder p").text
+    
+    student
   end
 
 end
