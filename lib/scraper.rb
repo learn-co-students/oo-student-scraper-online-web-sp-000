@@ -8,24 +8,32 @@ class Scraper
     html = open(index_url)
     doc = Nokogiri::HTML(html)
 
-    scraped_students = []
+    students = []
 
-    student_card = doc.css("div.student-card").first
-    student_card.each do |student|
+    doc.css(".student-card").each do |student|
+      student_data = {}
+      student_data[:name] = student.css("h4.student-name").text
+      student_data[:location] = student.css("p.student-location").text
+      student_data[:profile_url] = student.css("a").attribute("href").value
 
-      student_data = {
-        :name => student_card.css(".student-name").text,
-        :location => student_card.css(".student-location").text,
-        :profile_url => student_card.css("a").attribute("href").value
-      }
-
-      scraped_students << student_data
+      students << student_data
     end
 
-    scraped_students
+    students
   end
 
   def self.scrape_profile_page(profile_url)
+    html = open(profile_url)
+    doc = Nokogiri::HTML(html)
+
+    twitter = doc.css(".social-icon-container a").attribute("href~='twitter'")
+binding.pry
+    linkedin =
+    github =
+    blog
+    profile_quote
+    bio
+
 
   end
 
