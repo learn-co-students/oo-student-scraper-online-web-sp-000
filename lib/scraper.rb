@@ -27,9 +27,9 @@ class Scraper
     doc = Nokogiri::HTML(html)
 
     twitter = doc.css(".social-icon-container a").attribute("href~='twitter'")
-binding.pry
-    linkedin =
-    github =
+    binding.pry
+    linkedin
+    github
     blog
     profile_quote
     bio
