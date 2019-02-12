@@ -5,6 +5,7 @@ require 'pry'
 class Scraper
 
   def self.scrape_index_page(index_url)
+
     html = open(index_url)
     doc = Nokogiri::HTML(html)
 
@@ -17,6 +18,7 @@ class Scraper
       student_data[:profile_url] = student.css("a").attribute("href").value
 
       students << student_data
+
     end
 
     students
@@ -26,15 +28,24 @@ class Scraper
     html = open(profile_url)
     doc = Nokogiri::HTML(html)
 
-    twitter = doc.css(".social-icon-container a").attribute("href~='twitter'")
-    binding.pry
-    linkedin
-    github
-    blog
-    profile_quote
-    bio
+    student = {}
 
+    all_href = doc.css(".social-icon-container a").collect{ |icon| icon.attribute("href").value}
+    all_href.each do |link|
+      if link.include?("twitter")
+        student[:twitter] = link
+      elsif link.include?("linkedin")
+        student[:linkedin] = link
+      elsif link.include?("github")
+        student[:github] = link
+      elsif link.include?(".com")
+        student[:blog] = link
+      end
+    end
+    student[:profile_quote] = doc.css(".profile-quote").text
+    student[:bio] = doc.css(".description-holder p").text
 
+    student
   end
 
 end
