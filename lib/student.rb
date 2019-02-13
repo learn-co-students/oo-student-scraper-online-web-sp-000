@@ -13,7 +13,7 @@ class Student
     students_array.each{|student| Student.new(student)}
   end
 
-  def add_student_attributes(attributes_hash) #attributes_hash es el resultado de Scrape.scrape_profile_page
+  def add_student_attributes(attributes_hash) #attributes_hash es el resultado de Scrape.scrape_profile_page, los keys eran :linkedin, :github...
     attributes_hash.each{|k,v| self.send(("#{k}="),v)}
   end
 
