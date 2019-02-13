@@ -4,16 +4,16 @@ class Student
 
   @@all = []
 
-  def initialize(student_hash)
+  def initialize(student_hash) #student_hash es un hash individual resultado del method Scraper.scrape_index_page, los keys eran :name, :location y :profile_url
     student_hash.each {|k,v| self.send(("#{k}="),v)}
     @@all << self
   end
 
-  def self.create_from_collection(students_array)
+  def self.create_from_collection(students_array) # student_array es el resultado del method Scraper.scrape_index_pag
     students_array.each{|student| Student.new(student)}
   end
 
-  def add_student_attributes(attributes_hash)
+  def add_student_attributes(attributes_hash) #attributes_hash es el resultado de Scrape.scrape_profile_page
     attributes_hash.each{|k,v| self.send(("#{k}="),v)}
   end
 
