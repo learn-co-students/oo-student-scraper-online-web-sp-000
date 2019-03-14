@@ -22,26 +22,25 @@ class Scraper
   end
 
   def self.scrape_profile_page(profile_url)
-      doc = Nokogiri::HTML(open(profile_url))
-      
-      if doc.css("a")[1]["href"] == [] 
+      doc = Nokogiri::HTML(open("./fixtures/student-site/students/david-kim.html"))
+      social = doc.css("a")
+      number = social.count
+    
+          binding.pry
+  
+      social.each do 
         
-        array = {
-          profile_quote: doc.css(".profile-quote").text, 
-          bio: doc.css("p").text 
-        }
         
-      else
-        
-      array = { 
-        twitter: doc.css("a")[1]["href"],
-        linkedin: doc.css("a")[2]["href"],
-        github: doc.css("a")[3]["href"], 
-        blog: doc.css("a")[4]["href"], 
-        profile_quote: doc.css(".profile-quote").text, 
-        bio: doc.css("p").text 
-      }
 
+    
+      twitter = social[0]["href"] unless social[0]["href"].include?("twitter") == false 
+      twitter = social[1]["href"] unless social[1]["href"].include?("twitter") == false
+      twitter = social[2]["href"] unless social[2]["href"].include?("twitter") == false
+      twitter = social[3]["href"] unless social[3]["href"].include?("twitter") == false 
+      twitter = social[4]["href"] unless social[4]["href"].include?("twitter") == false 
+      
+      binding.pry
+    
   end
 
 end
