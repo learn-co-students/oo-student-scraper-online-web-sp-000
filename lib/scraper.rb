@@ -24,6 +24,15 @@ class Scraper
   def self.scrape_profile_page(profile_url)
       doc = Nokogiri::HTML(open(profile_url))
       
+      if doc.css("a")[1]["href"] == [] 
+        
+        array = {
+          profile_quote: doc.css(".profile-quote").text, 
+          bio: doc.css("p").text 
+        }
+        
+      else
+        
       array = { 
         twitter: doc.css("a")[1]["href"],
         linkedin: doc.css("a")[2]["href"],
