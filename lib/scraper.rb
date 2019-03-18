@@ -29,18 +29,21 @@ class Scraper
       h = {}
     
     while count < number do
-      github = social[count]["href"] unless social[count]["href"].include?("github") == false
+      github = social[count]["href"] unless social[count]["href"].include?("github") == false 
       linkedin = social[count]["href"] unless social[count]["href"].include?("linkedin") == false 
       twitter = social[count]["href"] unless social[count]["href"].include?("twitter") == false 
-      blog = social[count]["href"] unless social[count]["href"].include?("twitter") == true && social[count]["href"].include?("github") == true && social[count]["href"].include?("linkedin") == true
+      blog = social[count]["href"] unless social[count]["href"].include?("twitter") == true || social[count]["href"].include?("github") == true || social[count]["href"].include?("linkedin") == true
       count += 1
     end
     
+
     h[:github] = github unless github == nil 
     h[:linkedin] = linkedin unless linkedin == nil 
-    h[:twitter] = twitter unless twitter == nil
+    h[:twitter] = twitter unless twitter == nil 
     h[:blog] = blog unless blog == nil 
-    h 
+    h[:profile_quote] = doc.css(".profile-quote").text 
+    h[:bio] = doc.css("p").text 
+    h
     
   end
 
