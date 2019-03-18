@@ -22,24 +22,25 @@ class Scraper
   end
 
   def self.scrape_profile_page(profile_url)
-      doc = Nokogiri::HTML(open("./fixtures/student-site/students/david-kim.html"))
+      doc = Nokogiri::HTML(open(profile_url))
       social = doc.css("a")
       number = social.count
+      count = 1
+      h = {}
     
-          binding.pry
-  
-      social.each do 
-        
-        
-
+    while count < number do
+      github = social[count]["href"] unless social[count]["href"].include?("github") == false
+      linkedin = social[count]["href"] unless social[count]["href"].include?("linkedin") == false 
+      twitter = social[count]["href"] unless social[count]["href"].include?("twitter") == false 
+      blog = social[count]["href"] unless social[count]["href"].include?("twitter") == true && social[count]["href"].include?("github") == true && social[count]["href"].include?("linkedin") == true
+      count += 1
+    end
     
-      twitter = social[0]["href"] unless social[0]["href"].include?("twitter") == false 
-      twitter = social[1]["href"] unless social[1]["href"].include?("twitter") == false
-      twitter = social[2]["href"] unless social[2]["href"].include?("twitter") == false
-      twitter = social[3]["href"] unless social[3]["href"].include?("twitter") == false 
-      twitter = social[4]["href"] unless social[4]["href"].include?("twitter") == false 
-      
-      binding.pry
+    h[:github] = github unless github == nil 
+    h[:linkedin] = linkedin unless linkedin == nil 
+    h[:twitter] = twitter unless twitter == nil
+    h[:blog] = blog unless blog == nil 
+    h 
     
   end
 
