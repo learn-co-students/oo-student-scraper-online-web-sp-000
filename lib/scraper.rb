@@ -44,7 +44,11 @@ class Scraper
     h[:profile_quote] = doc.css(".profile-quote").text 
     h[:bio] = doc.css("p").text 
     h
+
     
+    
+    
+
   end
 
 end
