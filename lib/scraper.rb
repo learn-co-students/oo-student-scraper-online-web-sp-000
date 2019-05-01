@@ -14,7 +14,11 @@ class Scraper
     binding.pry
     # open(index_url, :name => //div/a, :location => "location", :profile_url=>"students/name"){|f|
     # }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 3a84bbc37b45ebe0ac2f36fb715c622ae668c173
   end
 
   def self.scrape_profile_page(profile_url)
