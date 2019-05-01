@@ -9,6 +9,7 @@ class Scraper
     # binding.pry
     # open(index_url, :name => //div/a, :location => "location", :profile_url=>"students/name"){|f|
     # }
+    
   end
 
   def self.scrape_profile_page(profile_url)
