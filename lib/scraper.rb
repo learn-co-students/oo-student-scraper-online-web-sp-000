@@ -23,7 +23,12 @@ class Scraper
   def self.scrape_profile_page(profile_url)
     profile = open(profile_url)
     doc = Nokogiri::HTML((profile))
-    {:twitter => doc.css('.social-icon-container a')[0].attr("href"), :linkedin => doc.css('.social-icon-container a')[1].attr("href"), :github => doc.css('.social-icon-container a')[2].attr("href"), :blog => doc.css('.social-icon-container a')[3].attr("href"), :profile_quote => doc.css('.profile-quote').text, :bio => doc.css('.description-holder p').text }
+    
+      if doc.css('.social-icon-container a')[2] != nil
+      {:twitter => doc.css('.social-icon-container a')[0].attr("href"), :linkedin => doc.css('.social-icon-container a')[1].attr("href"), :github => doc.css('.social-icon-container a')[2].attr("href"), :blog => doc.css('.social-icon-container a')[3].attr("href"), :profile_quote => doc.css('.profile-quote').text, :bio => doc.css('.description-holder p').text }
+      else 
+        {:linkedin => doc.css('.social-icon-container a')[0].attr("href"), :github => doc.css('.social-icon-container a')[1].attr("href"), :profile_quote => doc.css('.profile-quote').text, :bio => doc.css('.description-holder p').text}
+      end
 
   end
 
