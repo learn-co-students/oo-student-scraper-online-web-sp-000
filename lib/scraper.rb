@@ -16,7 +16,7 @@ class Scraper
     #:name => project.css("p.bbcard_blurb").text,
     #:location => project.css("ul.project-meta span.location-name").text,
     #:profile_url => project.css("ul.project-stats li.first.funded strong").text.gsub("%","").to_i
-  }
+  #}
   end
 
   def self.scrape_profile_page(profile_url)
