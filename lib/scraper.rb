@@ -8,9 +8,10 @@ class Scraper
     students = Nokogiri::HTML(html)
 
     students = {}
-
-    students.css("div.roster-cards-container").each do |student|
-      #puts student.css("div.student-card").text
+puts "hello"
+binding.pry
+    students.css("div.student-card").each do |student|
+      puts "hello"
   #title = project.css("h2.bbcard_name strong a").text
   #student[title.to_sym] = {
     #:name => project.css("p.bbcard_blurb").text,
