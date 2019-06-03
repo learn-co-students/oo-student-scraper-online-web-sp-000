@@ -26,8 +26,8 @@ class Scraper
       :twitter=>social_links[0],
       :github=>social_links[1],
       :blog=>social_links[2],
-      :profile_quote=> profile_page.css("div.profile-quote"),
-      :bio=> profile_page.css("div.bio-block details-block").css("p").text
+      :profile_quote=> profile_page.css("div.profile-quote").text,
+      :bio=> profile_page.css("div.bio-block details-block")
     }
 binding.pry
 profile_page
