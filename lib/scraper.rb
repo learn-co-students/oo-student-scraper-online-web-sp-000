@@ -5,12 +5,12 @@ class Scraper
 
   def self.scrape_index_page(index_url)
     html = File.read('./fixtures/student-site/index.html')
-    students = Nokogiri::HTML(html)
+    students_page = Nokogiri::HTML(html)
 
     students = {}
 puts "hello"
 binding.pry
-    students.css("div.student-card").each do |student|
+    students_page.css("div.student-card").each do |student|
       puts "hello"
   #title = project.css("h2.bbcard_name strong a").text
   #student[title.to_sym] = {
