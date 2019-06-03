@@ -11,7 +11,7 @@ class Scraper
 puts "hello"
 binding.pry
     students_page.css("div.student-card").each do |student|
-      puts "hello"
+      puts student.attribute("id").value
   #title = project.css("h2.bbcard_name strong a").text
   #student[title.to_sym] = {
     #:name => project.css("p.bbcard_blurb").text,
