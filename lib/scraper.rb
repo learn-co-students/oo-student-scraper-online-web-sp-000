@@ -23,16 +23,15 @@ class Scraper
     profile_page = Nokogiri::HTML(html)
     social_links = profile_page.css("div.social-icon-container").css("a").map {|social| social.attribute("href").value}
     profile_page = {
-      :twitter=>social_links[0],
-      :linkedin=>social_links[1],
-      :github=>social_links[2],
-      :blog=>social_links[3],
+      :twitter=>social_links.detect{|link| link.include?("twitter")},
+      :linkedin=>social_links.detect{|link| link.include?("linkedin")},
+      :github=>social_links.detect{|link| link.include?("github")},
+      :blog=>social_links.detect{|link| link.include?(".com") && !(link.include?("twitter") || link.include?("linkedin") || link.include?("github"))},
       :profile_quote=> profile_page.css("div.profile-quote").text,
       :bio=> profile_page.css("div.bio-block.details-block").css("p").text
     }
-binding.pry
-profile_page
 
+    profile_page.delete_if{|k,v| v.nil?}
   end
 
 #  {{:twitter=>"https://twitter.com/jmburges",
