@@ -24,10 +24,11 @@ class Scraper
     social_links = profile_page.css("div.social-icon-container").css("a").map {|social| social.attribute("href").value}
     profile_page = {
       :twitter=>social_links[0],
-      :github=>social_links[1],
-      :blog=>social_links[2],
+      :linkedin=>social_links[1],
+      :github=>social_links[2],
+      :blog=>social_links[3],
       :profile_quote=> profile_page.css("div.profile-quote").text,
-      :bio=> profile_page.css("div.bio-block details-block")
+      :bio=> profile_page.css("div.bio-block.details-block").css("p").text
     }
 binding.pry
 profile_page
