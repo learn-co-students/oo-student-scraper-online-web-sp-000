@@ -1,6 +1,6 @@
 require 'open-uri'
 require 'nokogiri'
-require 'pry'
+
 
 class Scraper
 
@@ -27,7 +27,7 @@ class Scraper
     
      html = Nokogiri::HTML(open(profile_url))
      
-          hash = {}
+      hash = {}
           
           if html.css(".description-holder p") != nil
             bio = html.css(".description-holder p").text 
@@ -55,10 +55,7 @@ class Scraper
                 hash[:blog] = page 
               end 
             end 
-                
-            #binding.pry 
           end 
-
         hash 
   end
 
