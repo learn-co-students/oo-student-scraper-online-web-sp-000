@@ -11,7 +11,6 @@ class Scraper
     html = Nokogiri::HTML(open(index_url))
        
     html.css(".student-card").each do |student| 
-      #binding.pry 
       student_name = student.css(".student-name").text 
       student_name_url = student_name.split(" ").join("-").downcase
       student_location = student.css(".student-location").text
