@@ -22,29 +22,50 @@ class Scraper
 
 
   def self.scrape_profile_page(profile_url)
+    html = open(profile_url)
+    doc = Nokogiri::HTML(html) 
     
+     array = []
+
+    student_hash = {}
+    
+
+doc.css(".main-wrapper div.social-icon-container a").each do |link|
+array << link.attribute("href").value
+#    binding.pry
+
+end
+array  
+
+
+#:twitter => array[0] 
+    
+#[1] pry(Scraper)> array
+#=> ["https://twitter.com/jmburges"]    
+    
+    
+    
+    
+    
+#  doc.css(".main-wrapper").each do |student|
+    
+#      student_hash = {
+#        :twitter => student.css(".vitals-container a").attribute("href").value,
+#        :linkedin => student.css(".vitals-container a").attribute("href").value,
+#        :github => student.css(".vitals-container a").attribute("href").value,
+#        :blog => student.css(".vitals-container a").attribute("href").value,
+       
+       
+ #       :profile_quote => student.css(".vitals-text-container div.profile-quote").text,
+#        :bio => student.css(".details-container p").text
+
+#      }
+#    end
+#student_hash
   end
 
 end
 
 =begin
-
-[1] pry(Scraper)> student_index_array
-=> [{:name=>"Kevin McCormack",
-  :location=>"New York, NY",
-  :profile_url=>"students/kevin-mccormack.html"}]
-
-
-<div class="student-card" id="ryan-johnson-card">
- ->           <a href="students/ryan-johnson.html">
-              <div class="view-profile-div">
-                <h3 class="view-profile-text">View Profile</h3>
-              </div>
-              <div class="card-text-container">
- ->                <h4 class="student-name">Ryan Johnson</h4>
- ->                <p class="student-location">New York, NY</p>
-              </div>
-            </a>
-          </div>
 
 =end
