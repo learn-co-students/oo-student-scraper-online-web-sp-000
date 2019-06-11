@@ -25,47 +25,31 @@ class Scraper
     html = open(profile_url)
     doc = Nokogiri::HTML(html) 
     
-     array = []
-
     student_hash = {}
     
 
-doc.css(".main-wrapper div.social-icon-container a").each do |link|
-array << link.attribute("href").value
+doc.css(".main-wrapper").each do |link|
+student_hash = {
+  :twitter => link.css("div.social-icon-container a:nth-of-type(1)").attribute("href").value,
+  :linkedin => link.css("div.social-icon-container a:nth-of-type(2)").attribute("href").value,
+  :github => link.css("div.social-icon-container a:nth-of-type(3)").attribute("href").value,
+  :blog => link.css("div.social-icon-container a:nth-of-type(4)").attribute("href").value,
+  :profile_quote => link.css(".vitals-text-container div.profile-quote").text,
+  :bio => link.css(".details-container p").text
+}
+end
 #    binding.pry
 
-end
-array  
+student_hash  
 
-
-#:twitter => array[0] 
-    
-#[1] pry(Scraper)> array
-#=> ["https://twitter.com/jmburges"]    
-    
-    
-    
-    
-    
-#  doc.css(".main-wrapper").each do |student|
-    
-#      student_hash = {
-#        :twitter => student.css(".vitals-container a").attribute("href").value,
-#        :linkedin => student.css(".vitals-container a").attribute("href").value,
-#        :github => student.css(".vitals-container a").attribute("href").value,
-#        :blog => student.css(".vitals-container a").attribute("href").value,
-       
-       
- #       :profile_quote => student.css(".vitals-text-container div.profile-quote").text,
-#        :bio => student.css(".details-container p").text
-
-#      }
-#    end
-#student_hash
   end
 
 end
 
 =begin
 
+if attribute == nil
+
+linkedin i github jedini postoje 
+-> nema TWITTER, BLOG
 =end
