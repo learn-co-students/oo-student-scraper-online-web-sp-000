@@ -12,7 +12,7 @@ class Scraper
 
     hash = {}
 
-    sudent_roster.css
+    student_roster.css
 
   end
 
