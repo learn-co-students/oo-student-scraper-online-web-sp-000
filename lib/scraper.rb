@@ -11,7 +11,7 @@ class Scraper
 
     array = []
 
-    page.css("div.roster-cards-container").each do |student|
+    page.css("a.").each do |student|
 
   end
 
