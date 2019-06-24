@@ -6,14 +6,12 @@ require 'pry'
 class Scraper
 
   def self.scrape_index_page(index_url)
-    html = File.read('http://178.128.177.30:42797/fixtures/student-site/')
 
-    student_roster = Nokogiri::HTML(html)
+    page = Nokogiri::HTML(open(index_url))
 
-    hash = {}
+    array = []
 
-    student_roster.css("<div class = "roster-cards-container"> <div>").each do |student|
-      
+    page.css("div.roster-cards-container").each do |student|
 
   end
 
