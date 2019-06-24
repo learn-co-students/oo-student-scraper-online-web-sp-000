@@ -12,7 +12,8 @@ class Scraper
 
     hash = {}
 
-    student_roster.css
+    student_roster.css("<div class = "roster-cards-container"> <div>").each do |student|
+      
 
   end
 
