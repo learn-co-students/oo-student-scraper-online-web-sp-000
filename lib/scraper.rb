@@ -26,19 +26,19 @@ class Scraper
     html = open(profile_url)
     student_profile = Nokogiri::HTML(html)
 
-    student_profile.css(".social-icon-container").each do |social_media|
-      if social_media.attributes("href").value.include?("twitter")
-        profile_hash[:twitter] = social_media.children[1].attributes["href"].value
-      elsif social_media.attributes("href").value.include?("linkedin")
-        profile_hash[:linkedin] = social_media.children[1].attributes["href"].value
-      elsif social_media.attributes("href").value.include?("github")
-        profile_hash[:github] = social_media.children[1].attributes["href"].value
-      else social_media.attributes("href").value.include?("blog")
-        profile_hash[:blog] = social_media.children[1].attributes["href"].value
+    student_profile.css(".social-icon-container").children.css("a").each do |social_media|
+      if social_media.attributes["href"].value.include?("twitter")
+        profile_hash[:twitter] = social_media.attributes["href"].value
+      elsif social_media.attributes["href"].value.include?("linkedin")
+        profile_hash[:linkedin] = social_media.attributes["href"].value
+      elsif social_media.attributes["href"].value.include?("github")
+        profile_hash[:github] = social_media.attributes["href"].value
+      else social_media.attributes["href"].value.include?("blog")
+        profile_hash[:blog] = social_media.attributes["href"].value
       end
     end
     profile_hash[:profile_quote] = student_profile.css(".profile-quote").text
-    profile_hash[:bio] = student_profile.css(".description-holder").text
+    profile_hash[:bio] = student_profile.css("p").text
 
     profile_hash
   end
