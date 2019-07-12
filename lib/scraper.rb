@@ -17,13 +17,32 @@ class Scraper
   end
 
   def self.scrape_profile_page(profile_url)
+    doc = Nokogiri::HTML(open(profile_url))
+    profile = {}
 
+    links = doc.css(".social-icon-container a").collect {|i| i.attribute("href").value}
+    links.each do |l|
+      if l.include?("twitter")
+        profile[:twitter] = l
+      elsif l.include?("github")
+        profile[:github] = l
+      elsif l.include?("linkedin")
+        profile[:linkedin] = l
+      elsif l.include?(".com")
+        profile[:blog] = l
+      end
+    end
+    profile[:profile_quote] = doc.css("div.profile-quote").text
+    profile[:bio] = doc.css("div.description-holder p").text
+    return profile
   end
+
+
 
 end
 
 #URL:  http://159.89.134.39:53825/fixtures/student-site/
-
+# http://159.89.134.39:53825/fixtures/student-site/students/ryan-johnson.html
 # [
 #   {:name => "Abby Smith", :location => "Brooklyn, NY", :profile_url => "students/abby-smith.html"},
 #   {:name => "Joe Jones", :location => "Paris, France", :profile_url => "students/joe-jonas.html"},
