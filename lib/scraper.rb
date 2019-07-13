@@ -17,43 +17,26 @@ class Scraper
   end
 
   def self.scrape_profile_page(profile_url)
-    doc = Nokogiri::HTML(open(profile_url))
-    profile = {}
+    profile = open(profile_url)
+    doc = Nokogiri::HTML(profile)
+    profile_details = {}
 
-    links = doc.css(".social-icon-container a").collect {|i| i.attribute("href").value}
+    links = doc.css(".vitals-container .social-icon-container a")
     links.each do |l|
-      if l.include?("twitter")
-        profile[:twitter] = l
-      elsif l.include?("github")
-        profile[:github] = l
-      elsif l.include?("linkedin")
-        profile[:linkedin] = l
-      elsif l.include?(".com")
-        profile[:blog] = l
+      if l.attr("href").include?("twitter")
+        profile_details[:twitter] = l.attr("href")
+      elsif l.attr("href").include?("linkedin")
+        profile_details[:linkedin] = l.attr("href")
+      elsif l.attr("href").include?("github")
+        profile_details[:github] = l.attr("href")
+      elsif l.attr("href").end_with?("com/")
+        profile_details[:blog] = l.attr("href")
       end
     end
-    profile[:profile_quote] = doc.css("div.profile-quote").text
-    profile[:bio] = doc.css("div.description-holder p").text
-    return profile
+    profile_details[:profile_quote] = doc.css(".vitals-container .vitals-text-container div").text
+    profile_details[:bio] = doc.css(".details-container .bio-block.details-block .bio-content.content-holder .description-holder p").text.strip
+    profile_details
   end
 
 
-
 end
-
-#URL:  http://159.89.134.39:53825/fixtures/student-site/
-# http://159.89.134.39:53825/fixtures/student-site/students/ryan-johnson.html
-# [
-#   {:name => "Abby Smith", :location => "Brooklyn, NY", :profile_url => "students/abby-smith.html"},
-#   {:name => "Joe Jones", :location => "Paris, France", :profile_url => "students/joe-jonas.html"},
-#   {:name => "Carlos Rodriguez", :location => "New York, NY", :profile_url => "students/carlos-rodriguez.html"},
-#   {:name => "Lorenzo Oro", :location => "Los Angeles, CA", :profile_url => "students/lorenzo-oro.html"},
-#   {:name => "Marisa Royer", :location => "Tampa, FL", :profile_url => "students/marisa-royer.html"}
-# ]
-
-# :linkedin=>"https://www.linkedin.com/in/flatironschool",
-# :github=>"https://github.com/learn-co,
-# :blog=>"http://flatironschool.com",
-# :profile_quote=>"\"Forget safety. Live where you fear to live. Destroy your reputation. Be notorious.\" - Rumi",
-# :bio=> "I'm a school"
-# }
