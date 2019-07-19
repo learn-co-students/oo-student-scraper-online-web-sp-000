@@ -3,6 +3,8 @@ require_relative "../lib/student.rb"
 require 'nokogiri'
 require 'colorize'
 
+#responsible for generating students using both the Student and Scraper classes.
+
 class CommandLineInterface
   BASE_PATH = "./fixtures/student-site/"
 
