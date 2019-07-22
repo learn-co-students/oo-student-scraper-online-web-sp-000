@@ -9,7 +9,7 @@ class Scraper
       bob= {
       :name => student.css("h4.student-name").text,
       :location => student.css("p.student-location").text,
-      :profile_url => student.css("a.href")#[0]["href"]
+      :profile_url => student.css("a.href")
     }
      binding.pry
     end
