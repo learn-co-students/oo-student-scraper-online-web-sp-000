@@ -23,15 +23,15 @@ class Scraper
   end
 
   def self.scrape_profile_page(profile_url)
-   student_profiles = {}
+   student_profiles = {}                              #declare Hash
    html = open(profile_url)
-   profile = Nokogiri::HTML(html)
+   profile = Nokogiri::HTML(html)                     #alternate way of initializing Nokogiri
 
    profile.css("div.main-wrapper.profile .social-icon-container a").each do |social_media|      #iterate over the main-wrapper/ social-icon css class fields
-     if social_media.attribute("href").value.include?("twitter")                                #if the href attribute includes these values, add these to hash
-       student_profiles[:twitter] = social_media.attribute("href").value
+     if social_media.attribute("href").value.include?("twitter")                                #if the href attribute includes these values,
+       student_profiles[:twitter] = social_media.attribute("href").value                        #Assign the symbol :twitter to the value of attribute
      elsif social_media.attribute("href").value.include?("linkedin")
-       student_profiles[:linkedin] = social_media.attribute("href").value
+       student_profiles[:linkedin] = social_media.attribute("href").value                       #syntax for adding to Hash
      elsif social_media.attribute("href").value.include?("github")
        student_profiles[:github] = social_media.attribute("href").value
      else
@@ -42,6 +42,6 @@ class Scraper
    student_profiles[:profile_quote] = profile.css("div.main-wrapper.profile .vitals-text-container .profile-quote").text
    student_profiles[:bio] = profile.css("div.main-wrapper.profile .description-holder p").text
 
-   return student_profiles
+   return student_profiles              #return our hash
   end
 end
