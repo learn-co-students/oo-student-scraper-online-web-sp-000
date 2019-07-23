@@ -1,4 +1,4 @@
-class Student
+class Student           #class that uses that data to instantiate new objects.
 
   attr_accessor :name, :location, :twitter, :linkedin, :github, :blog, :profile_quote, :bio, :profile_url
 
@@ -6,7 +6,7 @@ class Student
 
   def initialize(student_hash)
     student_hash.each do |attribute, value|
-      self.send("#{attribute}=", value)
+      self.send("#{attribute}=", value)    #send instance method metaprograms to assign the newly created student attributes and values in accordance with the key/value pairs of the hash.
     end
     @@all << self
   end
