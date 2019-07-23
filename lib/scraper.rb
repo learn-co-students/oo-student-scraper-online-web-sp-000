@@ -23,27 +23,25 @@ class Scraper
   end
 
   def self.scrape_profile_page(profile_url)
-   student_profile = {}
+   student_profiles = {}
    html = open(profile_url)
    profile = Nokogiri::HTML(html)
 
-   # Social Links
-
    profile.css("div.main-wrapper.profile .social-icon-container a").each do |social|
      if social.attribute("href").value.include?("twitter")
-       student_profile[:twitter] = social.attribute("href").value
+       student_profiles[:twitter] = social.attribute("href").value
      elsif social.attribute("href").value.include?("linkedin")
-       student_profile[:linkedin] = social.attribute("href").value
+       student_profiles[:linkedin] = social.attribute("href").value
      elsif social.attribute("href").value.include?("github")
-       student_profile[:github] = social.attribute("href").value
+       student_profiles[:github] = social.attribute("href").value
      else
-       student_profile[:blog] = social.attribute("href").value
+       student_profiles[:blog] = social.attribute("href").value
      end
    end
 
-   student_profile[:profile_quote] = profile.css("div.main-wrapper.profile .vitals-text-container .profile-quote").text
-   student_profile[:bio] = profile.css("div.main-wrapper.profile .description-holder p").text
+   student_profiles[:profile_quote] = profile.css("div.main-wrapper.profile .vitals-text-container .profile-quote").text
+   student_profiles[:bio] = profile.css("div.main-wrapper.profile .description-holder p").text
 
-   student_profile
- end
- end
+   return student_profiles
+  end
+end

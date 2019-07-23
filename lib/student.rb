@@ -17,6 +17,8 @@ class Student
     end
   end
 
+  #iterate over the given hash and use metaprogramming to dynamically assign the student attributes
+  #and values in accordance with the key/value pairs of the hash.
   def add_student_attributes(attributes_hash)
     attributes_hash.each do |attr, value|
       self.send("#{attr}=", value)
