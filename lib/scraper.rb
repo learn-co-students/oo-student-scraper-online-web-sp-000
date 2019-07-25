@@ -25,25 +25,26 @@ class Scraper
     html = File.read(profile_url)
     doc = Nokogiri::HTML(html)
     profile = {}
-    #binding.pry
-    #social_media = doc.css(".social-icon-container").css("a").attr("href")
-    #if social_media.value.include?("twitter")
-    profile[:twitter] = doc.css(".social-icon-container").css("a")[0].attr("href")
-    #end
-    #if social_media.value.include?("linkedin")
-    profile[:linkedin] = doc.css(".social-icon-container").css("a")[1].attr("href")
-    #end
-    #if social_media.value.include?("github")
-    profile[:github] = doc.css(".social-icon-container").css("a")[2].attr("href")
-    #end
-    #if social_media.value.include?("youtube")
-    profile[:blog] = doc.css(".social-icon-container").css("a")[3].attr("href")
-    #end
-    profile[:profile_quote] = doc.css(".profile-quote").text
-    profile[:bio] = doc.css(".description-holder").first.text.strip
-    profile
+    social_media = doc.css(".social-icon-container").css("a")
+    social_media.each do |link| 
+  
+    if link.attr("href").include?("twitter")
+      profile[:twitter] = link.attr("href")
+    end
+    if link.attr("href").include?("linkedin")
+      profile[:linkedin] = link.attr("href")
+    end
+    if link.attr("href").include?("github")
+      profile[:github] = link.attr("href")
+    end
+    unless link.attr("href").include?("twitter") || link.attr("href").include?("github") || link.attr("href").include?("linkedin")
+      profile[:blog] = link.attr("href")
+    end
     
-    
+    end
+      profile[:profile_quote] = doc.css(".profile-quote").text
+      profile[:bio] = doc.css(".description-holder").first.text.strip
+      profile
   end
 
 end
