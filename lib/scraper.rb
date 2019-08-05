@@ -21,8 +21,9 @@ class Scraper
   def self.scrape_profile_page(profile_url)
     html = open(profile_url)
     doc = Nokogiri::HTML(html)
+    social_media = doc.css(".social-icon-container a")
     profile_hash = {}
-    profile_hash[:twitter] = ""
+    profile_hash[:twitter] = social_media.css("a").attribute("href").value
     profile_hash[:linkedin] = ""
     profile_hash[:github] = ""
     profile_hash[:blog] = ""
@@ -31,6 +32,10 @@ class Scraper
     profile_hash
     binding.pry
   end
+  
+  #social_media.css("a").attribute("href").value = twitter
+  
+  
 
 end
 
