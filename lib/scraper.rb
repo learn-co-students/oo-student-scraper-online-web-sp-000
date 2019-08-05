@@ -7,8 +7,12 @@ class Scraper
    html = open(index_url)
     doc = Nokogiri::HTML(html)
     students = doc.css(".student-card a")
+    student_array = []
     students.each do |student|
-    student_name = student.css("h4.student-name").text.strip
+      
+    student_array << {:name => student.css("h4.student-name").text.strip,
+    :location => ,
+    :profile_url =>  }
     binding.pry
   end
   end
