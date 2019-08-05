@@ -19,7 +19,17 @@ class Scraper
   end
 
   def self.scrape_profile_page(profile_url)
-    
+    html = open(profile_url)
+    doc = Nokogiri::HTML(html)
+    profile_hash = {}
+    profile_hash[:twitter] = ""
+    profile_hash[:linkedin] = ""
+    profile_hash[:github] = ""
+    profile_hash[:blog] = ""
+    profile_hash[:profile_quote] = ""
+    profile_hash[:bio] = ""
+    profile_hash
+    binding.pry
   end
 
 end
