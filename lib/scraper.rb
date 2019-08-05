@@ -38,10 +38,13 @@ class Scraper
       elsif social.include?("http://")
       profile_hash[:blog] = social
     end
+    
+    profile_hash[:profile_quote] = doc.css(".profile-quote").text.strip
+    
   end
     
-    #profile_hash[:profile_quote] = ""
-  #profile_hash[:bio] = ""
+    
+  #profile_hash[:bio] = "" doc.css("#profile_quote")
     profile_hash
     binding.pry
   end
