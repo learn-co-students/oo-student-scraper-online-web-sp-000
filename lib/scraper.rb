@@ -10,8 +10,8 @@ class Scraper
     student_array = []
     students.each do |student|
       
-    student_array << {:name => student.css("h4.student-name").text.strip,
-    :location => ,
+    student_array << {:name => student.css("h4.student-name").text.strip
+    :location => 
     :profile_url =>  }
     binding.pry
   end
