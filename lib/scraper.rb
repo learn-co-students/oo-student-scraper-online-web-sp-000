@@ -23,17 +23,29 @@ class Scraper
     doc = Nokogiri::HTML(html)
     social_media = doc.css(".social-icon-container a")
     profile_hash = {}
-    profile_hash[:twitter] = social_media.css("a").attribute("href").value
-    profile_hash[:linkedin] = ""
-    profile_hash[:github] = ""
-    profile_hash[:blog] = ""
-    profile_hash[:profile_quote] = ""
-    profile_hash[:bio] = ""
+    social_array = []
+    social_media.css("a").each do |social|
+      social_array << social.attribute("href").value
+    end
+    
+    social_array.each do |social|
+      if social.include?("twitter")
+      profile_hash[:twitter] = social
+    elsif social.include?("linkedin")
+      profile_hash[:linkedin] = social
+      elsif social.include?("github")
+      profile_hash[:github] = social
+      elsif social.include?("http://")
+      profile_hash[:blog] = social
+    end
+  end
+    
+    #profile_hash[:profile_quote] = ""
+  #profile_hash[:bio] = ""
     profile_hash
     binding.pry
   end
   
-  #social_media.css("a").attribute("href").value = twitter
   
   
 
