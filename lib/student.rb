@@ -20,7 +20,7 @@ class Student
   end
 
   def self.all
-    
-  end
+    @@all
+   end
 end
 
