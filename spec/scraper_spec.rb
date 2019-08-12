@@ -15,10 +15,10 @@ describe "Scraper" do
   "I grew up outside of the Washington DC (NoVA!) and went to college at Carnegie Mellon University in Pittsburgh. After college, I worked as an Oracle consultant for IBM for a bit and now I teach here at The Flatiron School."}}
 
   let!(:student_david_hash) {{:linkedin=>"https://www.linkedin.com/in/david-kim-38221690",
- :github=>"https://github.com/davdkm",
- :profile_quote=>
-  "\"Yeah, well, you know, that's just, like, your opinion, man.\" - The Dude",
- :bio=>
+       :github=>"https://github.com/davdkm",
+       :profile_quote=>
+        "\"Yeah, well, you know, that's just, like, your opinion, man.\" - The Dude",
+       :bio=>
   "I'm a southern California native seeking to find work as a full stack web developer. I enjoying tinkering with computers and learning new things!"}}
 
   describe "#scrape_index_page" do
