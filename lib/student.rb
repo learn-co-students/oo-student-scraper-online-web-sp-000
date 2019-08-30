@@ -5,7 +5,7 @@ class Student
   @@all = []
 
   def initialize(student_hash)
-    student_hash.each do |key, value|
+    student_hash.each do |key, value| #Mass Assignment
       self.send("#{key}=", value)
       @@all << self 
     end
