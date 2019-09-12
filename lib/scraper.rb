@@ -21,12 +21,22 @@ class Scraper
     profile_page = Nokogiri::HTML(open(profile_url))
     scraped_profile = {}
     profile_page.css('.social-icon-container').each do |social_site|
-      scraped_profile[:twitter] = social_site.css('a/@href').first.text
-      scraped_profile[:linkedin] = social_site.css('a/@href')[1].text
-      scraped_profile[:github] = social_site.css('a/@href')[2].text
-      scraped_profile[:blog] = social_site.css('a/@href')[3].text
+      social_sites_array = social_site.css('a/@href').text.split('http')
+      social_sites_array.each do |site|
+        if site.include?("twitter")
+          scraped_profile[:twitter] = "http" + site
+        elsif site.include?("linkedin")
+          scraped_profile[:linkedin] = "http" + site
+        elsif site.include?("github")
+          scraped_profile[:github] = "http" + site
+        else
+          scraped_profile[:blog] = "http" + site
+        end
+      end
     end
+    scraped_profile.delete_if {|k, v| v == "http"}
     scraped_profile[:profile_quote] = profile_page.css('.profile-quote').text
+    scraped_profile[:bio] = profile_page.css('.description-holder/p').text
     scraped_profile
   end
 
