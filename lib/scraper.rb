@@ -11,30 +11,52 @@ class Scraper
       student_html = index_page.css("div.student-card")
       student_html.each do |student|  
       student_hash = {name: student.css(".student-name").text, location: student.css(".student-location").text, profile_url: student.css("a").attr("href").value}
-      
-      student_array << student_hash      
+      student_array << student_hash    
+     # binding.pry  
     
-  end
+                         end
   
      student_array
 
   end
 
   def self.scrape_profile_page(profile_url)
-   attributes = {}
-   profile_page = Nokogiri::HTML(open(profile_url))
-   profile_html = profile_page.css("div.social-icon-container").children
-   profile_html.each do |student|  
+     attributes = {}
+    profile_page = Nokogiri::HTML(open(profile_url))
+    #binding.pry
+    student = profile_page.css("div.social-icon-container").children
+     student.each do |student|
+     # binding.pry
+      # if value includes twitter
+      #   add attributes[:twitter] = value
+      # elsif value includes linked in
+     #elsif
+     #else
+     # add blog to attributes
+      # add linekddin
+    #  attributes =  {twitter: student.attributes["href"].value, linkedin: student[3].attributes["href"].value, github: student[5].attributes["href"].value, blog: student[7].attributes["href"].value, profile_quote: profile_page.css("div.profile-quote").text, bio: profile_page.css("div.description-holder p").text}
+      if student.attributes["href"].value.include?("twitter")
+        attributes[:twitter] = student.attributes["href"].value
+      elsif student.attributes["href"].value.include?("linkedin")
+        attributes[:linkedin] = student.attributes["href"].value
+      elsif student.attributes["href"].value.include?("github")
+        attributes[:github] = student.attributes["href"].value
+      elsif student.attributes["href"].value.include?("linkedin")
+        attributes[:linkedin] = student.attributes["href"].value
+      elsif student.attributes["href"].value.include?("profile_quote")
+        attributes[:profile_quote] = student.attributes["href"].value
+      else
+        nil   
 
-   attributes = {twitter: profile_html[1].attributes["href"].value, linkedin: profile_html[3].attributes["href"].value, github: profile_html[5].attributes["href"].value, blog: profile_html[7].attributes["href"].value, bio: profile_page.css("div.profile-quote").text}
-  
-   end 
-   attributes
-   
-  #   profile_html = profile_page.css
-  #   binding.pry
+    
+    
+                     end 
+                     attributes
+                    end 
+                     #binding.pry
+    
+              
+  end 
+  #   student = profile_page.css
+    # binding.pry
   end
-
-
-end
-
