@@ -26,6 +26,7 @@ class Scraper
     #binding.pry
     student = profile_page.css("div.social-icon-container").children
      student.each do |student|
+     
      # binding.pry
       # if value includes twitter
       #   add attributes[:twitter] = value
