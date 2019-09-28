@@ -26,13 +26,13 @@ class Scraper
 
 end
 
-  # puts i.css("div[class='card-text-container']").css("div").css("h4").text
-  
-  # puts i.css("div[class='card-text-container']").css("div").css("p").text
-  # puts i.attribute("href").value
-  # puts "========================================================="
-  
-  # doc = Nokogiri::HTML(open("https://learn-co-curriculum.github.io/student-scraper-test-page/"))
+# puts i.css("div[class='card-text-container']").css("div").css("h4").text
+
+# puts i.css("div[class='card-text-container']").css("div").css("p").text
+# puts i.attribute("href").value
+# puts "========================================================="
+
+# doc = Nokogiri::HTML(open("https://learn-co-curriculum.github.io/student-scraper-test-page/"))
 # student_cards = doc.css("div[class='student-card']").css("a")
 # student_list = []
 # student_cards.each do |i|
