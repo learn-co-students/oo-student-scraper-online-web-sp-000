@@ -32,6 +32,7 @@ class CommandLineInterface
       puts "  bio:".colorize(:light_blue) + " #{student.bio}"
       puts "  twitter:".colorize(:light_blue) + " #{student.twitter}"
       puts "  linkedin:".colorize(:light_blue) + " #{student.linkedin}"
+      puts "  youtube:".colorize(:light_blue) + " #{student.youtube}"
       puts "  github:".colorize(:light_blue) + " #{student.github}"
       puts "  blog:".colorize(:light_blue) + " #{student.blog}"
       puts "----------------------".colorize(:green)
