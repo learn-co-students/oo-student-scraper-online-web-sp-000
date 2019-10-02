@@ -35,7 +35,7 @@ class Scraper
       profile_page = Nokogiri::HTML(open(profile_url))
       sociallinks = profile_page.css("div.social-icon-container a")
       sociallinks.each do |link|
-       # binding.pry
+        #binding.pry
         if link.attributes["href"].value.include?("twitter") 
           attributes[:twitter] = link.attributes["href"].value
         elsif link.attributes["href"].value.include?("github")
@@ -43,12 +43,13 @@ class Scraper
           attributes[:github] = link.attributes["href"].value
         elsif link.attributes["href"].value.include?("linkedin")
           attributes[:linkedin] = link.attributes["href"].value
-        # elsif link.attributes["href"].value.include?("profile_quote")
-        #   attributes[:profile_quote] = link.attributes["href"].value
+        elsif link.attributes["href"].value.include?("github")
         else
           attributes[:blog] = link.attributes["href"].value
         end 
+        
       end 
+        attributes[:profile_quote] = profile_page.css(".profile-quote").text if profile_page.css(".profile-quote")
         biographytext = profile_page.css("div.details-container p").children[0].text
         
        attributes[:bio] = biographytext

@@ -5,6 +5,8 @@ class Student
   @@all = []
 
   def initialize(student_hash)
+    binding.pry
+    @name = name
     
   end
 
