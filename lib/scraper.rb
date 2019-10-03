@@ -1,15 +1,67 @@
-require 'open-uri'
 require 'pry'
+require 'open-uri'
+require 'nokogiri'
+
 
 class Scraper
 
   def self.scrape_index_page(index_url)
+      
+    doc = Nokogiri::HTML(open(index_url))
     
-  end
+     students = Array.new
+    doc.css("div.roster-cards-container").each do |card|
+      card.css(".student-card a").each do |student|
+        name = student.css(".student-name").text
+        location = student.css(".student-location").text
+        profile_url = "#{student.attr("href")}"
+        students << {name: name, location: location, profile_url: profile_url}
+      end
+    end
+    students
+  end	   
+  
+  #students:  "div.roster-cards-container"
+  #name: student.css("h4.student-name").text 
+  #location: student.css("p.student-location").text 
+  #URL: student.css("view-profile-div").text 
+     
+
+   
 
   def self.scrape_profile_page(profile_url)
+    doc = Nokogiri::HTML(open(profile_url))
     
-  end
+    scraped_student = Hash.new 
+    
+    icons = doc.css("div.social-icon-container a").collect do |social| 
+      social.attribute("href").value
+      #icons is an array of each social media object)
+    end 
+    
+        icons.each do |link|
+        ##link is just a URL
+        
+        if link.include?("twitter")
+          scraped_student[:twitter] = link 
+        
+        elsif link.include?("linkedin")
+          scraped_student[:linkedin] = link 
+        
+        elsif link.include?("github")
+          scraped_student[:github] = link 
+        
+  binding.pry 
+        end #block end 
+        end #conditional end 
+    
+  end #method end 
+     
+end #class end 
+  
+  
+  
+  
 
-end
-
+  
+   
