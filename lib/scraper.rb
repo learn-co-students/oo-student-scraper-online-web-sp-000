@@ -1,4 +1,4 @@
-require 'pry'
+ require 'pry'
 require 'open-uri'
 require 'nokogiri'
 
@@ -44,19 +44,30 @@ class Scraper
         
         if link.include?("twitter")
           scraped_student[:twitter] = link 
-        
+       
         elsif link.include?("linkedin")
           scraped_student[:linkedin] = link 
         
-        elsif link.include?("github")
+        elsif link.include?("github.com")
           scraped_student[:github] = link 
+    
+        else 
+          scraped_student[:blog] = link 
         
-  binding.pry 
+        
+  #scraped_student now returns a hash with the 3 socials. In same way please add quote and bio.    
         end #block end 
         end #conditional end 
     
+      quote = doc.css("div.profile-quote").text
+      scraped_student[:profile_quote] = "#{quote}"
+    
+      bio = doc.css("div.bio-content .description-holder p").text 
+      scraped_student[:bio] = bio
+    
+      scraped_student 
   end #method end 
-     
+    
 end #class end 
   
   
