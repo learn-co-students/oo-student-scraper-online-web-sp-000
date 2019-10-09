@@ -5,10 +5,18 @@ class Student
   @@all = []
 
   def initialize(student_hash)
-    binding.pry
     @name = name
+  
+    newstudent = student_hash.collect do |k, v|  instance_variable_set("@#{k}", v) unless v.nil?
+    #student_hash.collect do |k, v| send(":k" => v)
+    #send(newstudent, @@all)
+     
+                                      end
+    # send(:newstudent, @@all)
     
+  
   end
+
 
   def self.create_from_collection(students_array)
     
@@ -19,7 +27,7 @@ class Student
   end
 
   def self.all
-    
+   @@all
   end
 end
 
