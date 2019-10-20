@@ -7,18 +7,18 @@ class Student
   @@all = []
 
   def initialize(student_hash)
-   
-    #use meta programming to assign new student attributes and values per key/value pairs of hash. Use #send method to achieve this
-    #add newly created student to @@all
+   student_hash.each {|key, value| self.send(("#{key}="), value)}
     @@all << self
   end
 
   def self.create_from_collection(students_array)
-    #takes in array of hashes 
-    #iterates over array of hashes to create new student using each hash
+    students_array.each do |student|
+      Student.new(student)
   end
+end
 
   def add_student_attributes(attributes_hash)
+    
     #take hash whose key/value pairs describe additional attributes of a student
     #iterate over hash and use metaprogramming to dynamically assign student attributes and values using #send method
     #return value should be student, or self
