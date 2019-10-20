@@ -25,19 +25,20 @@ class Scraper
   def self.scrape_profile_page(profile_url)
     hash = {}
     doc = Nokogiri::HTML(open(profile_url))
-    links = doc.css(".social-icon-container").css("a").attr('href')
-      links.each do |link| 
-        puts links.value
-        binding.pry
-end
-    
+    link = doc.css(".social-icon-container").css("a").attr('href')
+      link.each do |link|
+        if link.include?("linkedin")
+          student[:linkedin] = link
+        elsif   
+        end
+      end
+    end
+
     
     
     #scraping individual student profile page to get further info
     #return value is hash of key/value pairs describing a student
     #scrapes twitter, linkedin, github, blog, profile quote, bio--also allows for when these aren't provided
     
-  end
 
-end
 
