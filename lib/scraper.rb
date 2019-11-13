@@ -12,11 +12,13 @@ class Scraper
     index_page.css("div.roster-cards-container").each do |profile|
       profile.css(".student-card a").each do |student|
         student_name = student.css(".student-name").text
-        student_link
+        student_link = 
+        student_location
 
     # binding.pry
     scraped_students << {name: student_name, location: student_location, profile_url: student_link }
-
+      end
+    end
   end
 
   def self.scrape_profile_page(profile_url)
