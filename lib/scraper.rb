@@ -3,6 +3,7 @@ require 'pry'
 
 class Scraper
 
+  # scrapes the page to get each students name, location, profile_url, and stores them in a student_info hash. Then it adds the student_info to the students array, returning the students array.
   def self.scrape_index_page(index_url)
     students = []
     doc = Nokogiri::HTML(open(index_url))
@@ -16,6 +17,7 @@ class Scraper
     students
   end
 
+  # scrapes the students profile page to get thier social media links, profile_quote, bio, and stores them in a student_hash. Then it returns that student hash.
   def self.scrape_profile_page(profile_url)
     student_hash = {}
     doc = Nokogiri::HTML(open(profile_url))
