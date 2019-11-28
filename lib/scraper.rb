@@ -7,10 +7,14 @@ class Scraper
     html = open(index_url)
     doc = Nokogiri::HTML(html)
 
-    roster_cards = doc.css(".roster-cards-container")
+    names = []
+    doc.css("div.roster-cards-container").each do |r|
+      puts r.css(".student_card a .card-text-container h4.student-name").text
+      binding.pry
 
-    binding.pry
-    puts roster_cards[0]
+    end
+
+
 
     # roster_cards.each do |cards|
     #   cards.each do |card|
