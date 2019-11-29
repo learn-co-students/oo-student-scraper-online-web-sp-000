@@ -5,21 +5,36 @@ class Student
   @@all = []
 
   def initialize(student_hash)
-    student_hash.each {|k, v| self.send(("#{k}="), v)}
+    student_hash.each do |key, value|
+      if key == :name
+        @name = value
+      else key == :location
+        @location = value
+      end
+    end
     @@all << self
   end
 
   def self.create_from_collection(students_array)
-    students_array.each do |student_hash|
-      self.new(student_hash)
+    students_array.each do |student|
+      new_student = Student.new(student)
     end
   end
 
   def add_student_attributes(attributes_hash)
-    attributes_hash.each do |k, v|
-      self.send(("#{k}="), v)
+    attributes_hash.each do |key, value|
+      if key == :bio
+        @bio = value
+      elsif key == :blog
+        @blog = value
+      elsif key == :linkedin
+        @linkedin = value
+      elsif key == :profile_quote
+        @profile_quote = value
+      elsif key == :twitter
+        @twitter = value
+      end
     end
-    self
   end
 
   def self.all
