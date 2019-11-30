@@ -28,6 +28,7 @@ class Scraper
       student_info << student_bio
     end
     student_info
+    binding.pry
 
   end
 
