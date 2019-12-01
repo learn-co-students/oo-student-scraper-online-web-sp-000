@@ -45,23 +45,19 @@ class Scraper
       elsif site_address.include?("github.com")
         github = site_address
         student_info[:github] = github
+      else
+        blog = site_address
+        student_info[:blog] = blog
       end
     end
 
+    profile_quote = doc.css("div.vitals-text-container div.profile-quote").text.strip
+    student_info[:profile_quote] = profile_quote
 
-    profile_quote = doc.css("div.vtials-text-container div.profile.quote").text.strip
+    bio = doc.css("div.bio-content div.description-holder p").text.strip
+    student_info[:bio] = bio
 
-    binding.pry
-
-    # student_info = {:name => name, :location => location, :profile_url => profile}
-
-    # doc.css("div.social-icon-container a")[0]["href"] =>twitter
-    # doc.css("div.social-icon-container a")[1]["href"] =>linkedin
-    # doc.css("div.social-icon-container a")[2]["href"] =>github
-
-
-
-
+    student_info
 
   end
 
