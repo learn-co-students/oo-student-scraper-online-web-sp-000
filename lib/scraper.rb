@@ -48,6 +48,9 @@ class Scraper
       end
     end
 
+
+    profile_quote = doc.css("div.vtials-text-container div.profile.quote").text.strip
+
     binding.pry
 
     # student_info = {:name => name, :location => location, :profile_url => profile}
