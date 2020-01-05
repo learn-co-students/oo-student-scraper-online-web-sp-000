@@ -27,13 +27,6 @@ class Scraper
     doc = Nokogiri::HTML(html)
 
     hash = {}
-		#   twitter: nil,
-		#   linkedin: nil,
-		#   github: nil,
-		#   blog: nil,
-		#   profile_quote: nil,
-		#   bio: nil
-		# }
 
     links = doc.css('.social-icon-container a').map {|a| 
     	link = a.attribute('href').value
