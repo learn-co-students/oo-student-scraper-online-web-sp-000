@@ -42,7 +42,7 @@ class Scraper
     # binding.pry 
     page = Nokogiri::HTML(open(profile_url))
     student_hash = {} 
-    student_page = page.css("a").map {|link| link["href"]}
+    student_page = page.css("div.social-icon-container a").map {|link| link["href"]}
     student_quote = page.css("div.vitals-text-container div.profile-quote").text.strip
     student_bio = page.css("div.description-holder p").text.strip
     student_hash[:profile_quote] = student_quote
