@@ -43,6 +43,10 @@ class Scraper
     page = Nokogiri::HTML(open(profile_url))
     student_hash = {} 
     student_page = page.css("a").map {|link| link["href"]}
+    student_quote = page.css("div.vitals-text-container div.profile-quote").text.strip
+    student_bio = page.css("div.description-holder").text.strip 
+    student_hash[:profile_quote] = student_quote
+    student_hash[:bio] = student_bio
     #binding.pry
     student_page.each do |link|
       if link.include?("twitter")
@@ -55,7 +59,7 @@ class Scraper
         student_hash[:blog] = link 
       end 
     end 
-    student_hash 
+    student_hash
   end
 
 end
