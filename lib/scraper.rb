@@ -39,7 +39,23 @@ class Scraper
   def self.scrape_profile_page(profile_url)
     # responsible for scraping an individual student's profile page 
     # to get further info about that student 
-      
+    # binding.pry 
+    page = Nokogiri::HTML(open(profile_url))
+    student_hash = {} 
+    student_page = page.css("a").map {|link| link["href"]}
+    #binding.pry
+    student_page.each do |link|
+      if link.include?("twitter")
+        student_hash[:twitter] = link 
+      elsif link.include?("linkedin")
+        student_hash[:linkedin] = link 
+      elsif link.include?("github")
+        student_hash[:github] = link 
+      else
+        student_hash[:blog] = link 
+      end 
+    end 
+    student_hash 
   end
 
 end
