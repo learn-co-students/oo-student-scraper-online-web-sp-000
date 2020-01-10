@@ -15,7 +15,7 @@ class Student
   def self.create_from_collection(students_array)
     # uses the Scraper class to create students with
     # the correct name and location
-    #binding.pry
+    
      
   end
 
