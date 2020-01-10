@@ -29,10 +29,18 @@ class Student
   end
 
   def add_student_attributes(attributes_hash)
-
+    # takes in a hash whose key/value pairs describe additional attributes of an individual student
+    # iterate over the given hash and use meta-programming to dynamically 
+    # assign the student attributes and values per the key/val pairs of the hash. 
+    # use #send 
+   # binding.pry
+   attributes_hash.each do |attribute, value|
+     self.send(("#{attribute}="), value)
+     save 
+   end 
   end
 
   def self.all
-
+    @@all 
   end
 end
