@@ -6,8 +6,7 @@ class Student
 
   def initialize(student_hash)
     # takes in an arg of a hash and sets that new student's
-    # attributes using the key/value pairs of that hash.
-    # binding.pry
+    # attributes using the key/value pairs of that hash
     student_hash.each {|key, value| self.send(("#{key}="), value)}
     save 
   end
@@ -21,11 +20,9 @@ class Student
     # the correct name and location
     # iterate over the array of hashes and create a new individual
     # student using each hash.
-    #binding.pry
     students_array.each do |student|
       Student.new({:name => "#{student[:name]}", :location => "#{student[:location]}"})
     end
-    #binding.pry
   end
 
   def add_student_attributes(attributes_hash)
@@ -33,7 +30,6 @@ class Student
     # iterate over the given hash and use meta-programming to dynamically 
     # assign the student attributes and values per the key/val pairs of the hash. 
     # use #send 
-   # binding.pry
    attributes_hash.each do |attribute, value|
      self.send(("#{attribute}="), value)
      save 
