@@ -14,21 +14,18 @@ class CommandLineInterface
   end
 
   def make_students
-    puts "make_students"
     students_array = Scraper.scrape_index_page(BASE_PATH + 'index.html')
     Student.create_from_collection(students_array)
   end
 
   def add_attributes_to_students
-    puts "add_attributes_to_students"
-    Student.all[0, 5].each do |student|
+    Student.all.each do |student|
       attributes = Scraper.scrape_profile_page(BASE_PATH + student.profile_url)
       student.add_student_attributes(attributes)
     end
   end
 
   def display_students
-    #binding.pry
     Student.all.each do |student|
       puts "#{student.name.upcase}".colorize(:blue)
       puts "  location:".colorize(:light_blue) + " #{student.location}"

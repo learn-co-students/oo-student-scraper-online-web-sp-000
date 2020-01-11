@@ -20,7 +20,6 @@ class Student
     # the correct name and location
     # iterate over the array of hashes and create a new individual
     # student using each hash.
-    puts "create_from_collection"
     students_array.each do |student|
       Student.new(student)
     end
@@ -31,12 +30,10 @@ class Student
     # iterate over the given hash and use meta-programming to dynamically
     # assign the student attributes and values per the key/val pairs of the hash.
     # use #send
-    puts "add_student_attributes"
     attributes_hash.each do |attribute, value|
       self.send(("#{attribute}="), value)
       save
     end
-    #binding.pry
   end
 
   def self.all
