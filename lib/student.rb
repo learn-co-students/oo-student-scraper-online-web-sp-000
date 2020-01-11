@@ -30,10 +30,10 @@ class Student
     # iterate over the given hash and use meta-programming to dynamically 
     # assign the student attributes and values per the key/val pairs of the hash. 
     # use #send 
-   attributes_hash.each do |attribute, value|
-     self.send(("#{attribute}="), value)
-     save 
-   end 
+    attributes_hash.each do |attribute, value|
+      self.send(("#{attribute}="), value)
+      save 
+    end 
   end
 
   def self.all
