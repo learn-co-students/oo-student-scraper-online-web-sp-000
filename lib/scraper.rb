@@ -12,42 +12,53 @@ class Scraper
   def self.scrape_index_page(index_url)
     html = open(index_url)
     @doc = Nokogiri::HTML(html)
-
-    students = {}
-    @doc.css("div.roster-cards-container").each do |info|
-    info.css(".student-card a").each do |a_student|
-  #   student = Scraper.new
-
-    each_student =
-        :name => a_student.css(".student-name").text,
-        :location => a_student.css(".student-location").text,
-        :profile_url => info.css(".student-card").first.css("a").attr("href").value
-        # a_student.css("a").attr("href")
-
-      ]
-      students << each_student
-# binding.pry
+    students = []
+      @doc.css("div.roster-cards-container").each do |info|
+        info.css(".student-card a").each do |a_student|
+          each_student = {
+            :name => a_student.css(".student-name").text,
+            :location => a_student.css(".student-location").text,
+            :profile_url => a_student.attr("href")
+          }
+          students << each_student
         end
       end
       students
-    end
+  end
 
-        #   allstudent.each do |student|
-
-          # @doc.css(".student-card").each do |student|
-
-        #    student.each do |profile|
-        #  profile = Student.new
-             #scraped = student.css('.student_card').text
-  #  students.css('div.a').first
-  #  students.css('div.student-card a').each do |student|
-  #@doc.css(".student-card").first.css("a").attr("href")
-    #   end
 
 
   def self.scrape_profile_page(profile_url)
     html = open(profile_url)
-    doc = Nokogiri::HTML(html)
+    @doc = Nokogiri::HTML(html)
+    platforms= {}
+      @doc.css(".social-icon-container a").each do |platform|
+    #    binding.pry
+        if platform.attr("href").include?("twitter")
+          platforms[:twitter] = platform.attr("href")
+        elsif platform.attr("href").include?("linkedin")
+          platforms[:linkedin] = platform.attr("href")
+        elsif platform.attr("href").include?("github")
+          platforms[:github] = platform.attr("href")
+        elsif platform.attr('href').include?('.vitals-container h1') #need bio user name here
+          platforms[:blog] = platform.attr('href')
+      #  elsif platform.attr("href").include?("blog")
+      #      platforms[:blog] = platform.attr("href")
+
+        end
+      #   @doc.css("social-icon-container").attr('href')
+      #  => nil
+      end
+
+      platforms[:profile_quote] = @doc.css(".vitals-text-container div.profile-quote").text,
+      platforms[:bio] = @doc.css(".bio-content p").text
+      platforms
+    # binding.pry
+
+    #  end
+      # @doc.css(".social-icon-container a")
+      # @doc.css(".social-icon-container a").attr('href')
+      # => #(Attr:0x127fbe0 { name = "href", value = "https://twitter.com/jmburges" })
   end
 
 
