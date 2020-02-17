@@ -25,12 +25,19 @@ class Scraper
     end
 
   def self.scrape_profile_page(profile_url)
-    # Return a hash of attributes that describe a individual student student
     profile_page = Nokogiri::HTML(open(profile_url))
-    # Add the information to a hash
-    binding.pry
+    student_data = {}
 
+    profile_page.css(".social-icon-container a").collect{|link| link.attribute("href").text}
+    # binding.pry
   end
 
 end
+
+
+
+
+
+
+ 
 
