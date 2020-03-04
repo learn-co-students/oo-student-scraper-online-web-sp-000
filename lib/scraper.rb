@@ -18,37 +18,29 @@ class Scraper
     students
   end
 
-  
-
   # profile_url = doc.css(".student-card").css("a").attribute("href").value
   # location = doc.css(".student-card").css(".student-location").text
   # name = doc.css(".student-card").css(".student-name").text
 
 
-  # def create_project_hash
-  #   html = File.read('fixtures/kickstarter.html')
-  #   kickstarter = Nokogiri::HTML(html)
-
-  #   projects = {}
-
-  #   kickstarter.css("li.project.grid_4").each do |project|
-  #     title = project.css("h2.bbcard_name strong a").text
-  #     projects[title.to_sym] = {
-  #       :image_link => project.css("div.project-thumbnail a img").attribute("src").value,
-  #       :description => project.css("p.bbcard_blurb").text,
-  #       :location => project.css("ul.project-meta span.location-name").text,
-  #       :percent_funded => project.css("ul.project-stats li.first.funded strong").text.gsub("%","").to_i
-  #     }
-  #    end
-
-  #    projects
-
-  # end
-
-
-  # def self.scrape_profile_page(profile_url)
-
-  # end
-
-
+  def self.scrape_profile_page(profile_url)
+    students_hash = {}
+    doc = Nokogiri::HTML(open(profile_url))
+    social_links = doc.css(".social-icon-container").children.css("a").map { |links| links.attribute("href").value}
+    social_links.each do |link|
+      if link.include?("twitter")
+        students_hash[:twitter] = link
+      elsif link.include?("linkedin")
+        students_hash[:linkedin] = link
+      elsif link.include?("github")
+        students_hash[:github] = link
+      else
+        students_hash[:blog] = link
+        # student.css("img").attribute("src").text.include?("rss")
+      end
+    end
+        students_hash[:profile_quote] = doc.css(".main-wrapper").css(".vitals-container").css(".profile-quote").text
+        students_hash[:bio] = doc.css(".details-container").css(".description-holder").css("p").text
+        students_hash
+  end
 end
