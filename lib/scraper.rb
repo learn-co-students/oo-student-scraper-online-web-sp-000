@@ -23,6 +23,7 @@ class Scraper
     doc = Nokogiri::HTML(open(profile_url))
     social = doc.css("div.social-icon-container a").collect {|icon| icon}
     social .each do
+      binding.pry
       if icon.include?(twitter)
         student[:twitter] = doc.css("div.social-icon-container > a:nth-child(1)").attribute("href").value
       elsif icon.include?(linkedin)
@@ -33,7 +34,7 @@ class Scraper
         student[:blog] =doc.css("div.social-icon-container > a:nth-child(4)").attribute("href").value
       end
     end
-      student[profile_quote] = doc.css("body > div > div.vitals-container > div.vitals-text-container > div").inner_text.strip
-      student[bio] = doc.css("body > div > div.details-container > div.bio-block.details-block > div > div.description-holder > p").inner_text
+      student[:profile_quote] = doc.css("body > div > div.vitals-container > div.vitals-text-container > div").inner_text.strip
+      student[:bio] = doc.css("body > div > div.details-container > div.bio-block.details-block > div > div.description-holder > p").inner_text
   end
 end
