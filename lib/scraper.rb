@@ -34,7 +34,6 @@ class Scraper
         student[:blog] =doc.css("div.social-icon-container > a:nth-child(#{i})").attribute("href").value
       end
     end
-    binding.pry
       student[:profile_quote] = doc.css("div.vitals-text-container > div").inner_text.strip
       student[:bio] = doc.css("div.description-holder > p").inner_text
       student
