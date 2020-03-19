@@ -21,20 +21,22 @@ class Scraper
     student = {}
 
     doc = Nokogiri::HTML(open(profile_url))
-    social = doc.css("div.social-icon-container a").collect {|icon| icon.attribute("href")}
-    social .each do
-      binding.pry
-      if social.include?(twitter)
-        student[:twitter] = doc.css("div.social-icon-container > a:nth-child(1)").attribute("href").value
-      elsif social.include?(linkedin)
-        student[:linkedin] =doc.css("div.social-icon-container > a:nth-child(2)").attribute("href").value
-      elsif social.include?(github)
-        student[:github] =doc.css("div.social-icon-container > a:nth-child(3)").attribute("href").value
-      elsif social.include?(blog)
-        student[:blog] =doc.css("div.social-icon-container > a:nth-child(4)").attribute("href").value
+    social = doc.css("div.social-icon-container a").collect {|icon| icon.attribute("href").value}
+    social.each.with_index(1) do |link, i|
+
+      if link.include?("twitter.com")
+        student[:twitter] = doc.css("div.social-icon-container > a:nth-child(#{i})").attribute("href").value
+      elsif link.include?("linkedin.com")
+        student[:linkedin] =doc.css("div.social-icon-container > a:nth-child(#{i})").attribute("href").value
+      elsif link.include?("github.com")
+        student[:github] =doc.css("div.social-icon-container > a:nth-child(#{i})").attribute("href").value
+      elsif link.include?(".com")
+        student[:blog] =doc.css("div.social-icon-container > a:nth-child(#{i})").attribute("href").value
       end
     end
-      student[:profile_quote] = doc.css("body > div > div.vitals-container > div.vitals-text-container > div").inner_text.strip
-      student[:bio] = doc.css("body > div > div.details-container > div.bio-block.details-block > div > div.description-holder > p").inner_text
+    binding.pry
+      student[:profile_quote] = doc.css("div.vitals-text-container > div").inner_text.strip
+      student[:bio] = doc.css("div.description-holder > p").inner_text
+      student
   end
 end
