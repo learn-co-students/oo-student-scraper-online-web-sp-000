@@ -24,49 +24,25 @@ class Scraper
       students
     end
 
-    
-
-  # def self.scrape_profile_page(profile_url)
-  #   profile_page = Nokogiri::HTML(open(profile_url))
-  #   student_data = {}
-
-  #   profile_page.css(".social-icon-container a").collect{|link| link.attribute("href").text}
-  #   binding.pry
-  # end
-
-  def self.scrape_profile_page(profile_url)
-    html = open(profile_url)
-    doc = Nokogiri::HTML(html)
-    
-    student_profiles = {}
-
-    social_link = doc.css(".vitals-container .social-icon-container a")
-
-    binding.pry
-    
-    social_link.each do |element|
-      if element.attr("href").include?("twitter")
-        student_profiles[:twitter] = element.attr('href')
-      elsif element.attr("href").include?("linkedin")
-        student_profiles[:linkedin] = element.attr("href")
-      elsif element.attr("href").include?("github")
-        student_profiles[:github] = element.attr("href")
-      elsif element.attr("href").include?("com/")
-      student_profiles[:blog] = element.attr("href")
+    def self.scrape_profile_page(profile_url)
+      student = {}
+      profile_page = Nokogiri::HTML(open(profile_url))
+      links = profile_page.css(".social-icon-container").children.css("a").map {|el| el.attribute('href').value}
+      
+      links.each do |link|
+        if link.include?("linkedin")
+          student[:linkedin] = link 
+        elsif link.include?("github")
+          student[:github] = link
+        elsif link.include?("twitter")
+          student[:twitter] = link 
+        else 
+          student[:blog] = link 
+        end
       end
+      student[:profile_quote] = profile_page.css(".profile-quote").text
+      student[:bio] = profile_page.css("div.description-holder p").text
+      student
     end
-    
-    student_profiles[:profile_quote] = doc.css(".vitals-container .vitals-text-container .profile-quote").text
-    student_profiles[:bio] = doc.css(".bio-block.details-block .bio-content.content-holder .description-holder p").text
-    
-    student_profiles
+
   end
-end
-
-
-
-
-
-
- 
-
