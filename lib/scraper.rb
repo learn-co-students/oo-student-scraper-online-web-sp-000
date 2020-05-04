@@ -21,12 +21,15 @@ class Scraper
     social_profile = doc.css(".vitals-container a")
     profile_quote = doc.css(".vitals-container")
     bio = doc.css(".details-container")
-    social_networks = ["twitter", "linkedin", "github", "blog"]
-    i = 0
+    social_networks = ["twitter", "facebook", "linkedin", "github", "blog"]
     hash = {}
     social_profile.each do |e|
-      hash[social_networks[i].to_sym] = e["href"]
-      i += 1
+      h = e["href"].split(/\b/) & social_networks
+      if h != []  
+        hash[h[0].to_sym] = e["href"]
+      else
+        hash[:blog] = e["href"]
+      end
     end
     hash[:profile_quote] = profile_quote.css(".profile-quote").text
     hash[:bio] = bio.css(".description-holder p").text
