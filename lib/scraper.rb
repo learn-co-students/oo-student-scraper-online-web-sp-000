@@ -27,10 +27,26 @@ class Scraper
   def self.scrape_profile_page(profile_url)
     doc = Nokogiri::HTML(open(profile_url))
     profile_page = {}
-    doc.css().each do |profile|
-      twitter = profile.css()
-      profile[twitter.to_sym] = ""
+    #binding.pry
+
+    doc.css(".social-icon-container").children.css("a").each do |link|
+      if link.attributes["href"].value.include?("twitter")
+        profile_page[:twitter] = link.attributes["href"].value
+      elsif link.attributes["href"].value.include?("linkedin")
+        profile_page[:linkedin] = link.attributes["href"].value
+      elsif link.attributes["href"].value.include?("github")
+        profile_page[:github] = link.attributes["href"].value
+      else
+        profile_page[:blog] = link.attributes["href"].value
+      end
+      # twitter = profile.css()
+      # profile[twitter.to_sym] = ""
+      #if string contains twitter.. put it as the twitter value.
+      #then it has to be the blog.
     end
+    profile_page[:profile_quote] = doc.css(".vitals-text-container").first.children[5].children.text
+    profile_page[:bio] = doc.css("p").first.text
+    profile_page
   end
 end
 
