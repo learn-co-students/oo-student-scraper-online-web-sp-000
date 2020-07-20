@@ -50,7 +50,8 @@ doc.css(".social-icon-container a").each{|link|
 
     profile[:profile_quote] = doc.css(".profile-quote").text
 
-    profile[:bio] = doc.css(".description-holder p").text
+    profile[:bio] = doc.css(".description-holder p").
+    return profile
   end
 
 end
