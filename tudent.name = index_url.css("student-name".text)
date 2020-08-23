@@ -1,0 +1,21 @@
+
+[1mFrom:[0m /mnt/c/users/Olivier/dev/flatiron/labs/oo-student-scraper-online-web-sp-000/lib/scraper.rb @ line 16 Scraper.scrape_index_page:
+
+     [1;34m9[0m: [32mdef[0m [1;36mself[0m.[1;34mscrape_index_page[0m(index_url)
+    [1;34m10[0m:   [1;34m# binding.pry[0m
+    [1;34m11[0m: 
+    [1;34m12[0m:   index_url = open([31m[1;31m'[0m[31mhttps://learn-co-curriculum.github.io/student-scraper-test-page/index.html[1;31m'[0m[31m[0m)
+    [1;34m13[0m: 
+    [1;34m14[0m:   student_list = [1;34;4mNokogiri[0m::HTML(index_url)
+    [1;34m15[0m: 
+ => [1;34m16[0m:   binding.pry
+    [1;34m17[0m:   index_url.css.each [32mdo[0m |student|
+    [1;34m18[0m:     student = [1;34;4mStudent[0m.new
+    [1;34m19[0m:     binding.pry
+    [1;34m20[0m:     student.name = index_url.css([31m[1;31m"[0m[31mstudent-name[1;31m"[0m[31m[0m.text)
+    [1;34m21[0m:     [1;34m#student.location = [0m
+    [1;34m22[0m:     [1;34m#student.profile_url = [0m
+    [1;34m23[0m:   [32mend[0m
+    [1;34m24[0m: 
+    [1;34m25[0m: [32mend[0m
+
