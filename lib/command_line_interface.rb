@@ -14,7 +14,9 @@ class CommandLineInterface
 
   def make_students
     students_array = Scraper.scrape_index_page(BASE_PATH + 'index.html')
+    #array of hashes, each hash is student's basic info (name profile link location)
     Student.create_from_collection(students_array)
+    #feed that array to make student instances
   end
 
   def add_attributes_to_students
