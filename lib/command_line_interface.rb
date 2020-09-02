@@ -19,6 +19,7 @@ class CommandLineInterface
 
   def add_attributes_to_students
     Student.all.each do |student|
+      # binding.pry
       attributes = Scraper.scrape_profile_page(BASE_PATH + student.profile_url)
       student.add_student_attributes(attributes)
     end
@@ -27,13 +28,24 @@ class CommandLineInterface
   def display_students
     Student.all.each do |student|
       puts "#{student.name.upcase}".colorize(:blue)
-      puts "  location:".colorize(:light_blue) + " #{student.location}"
-      puts "  profile quote:".colorize(:light_blue) + " #{student.profile_quote}"
-      puts "  bio:".colorize(:light_blue) + " #{student.bio}"
-      puts "  twitter:".colorize(:light_blue) + " #{student.twitter}"
-      puts "  linkedin:".colorize(:light_blue) + " #{student.linkedin}"
-      puts "  github:".colorize(:light_blue) + " #{student.github}"
-      puts "  blog:".colorize(:light_blue) + " #{student.blog}"
+      student.instance_variables.each do |attr, value|
+        # binding.pry
+        label=attr.to_s
+        label=label.gsub(/@/, "")
+        label=label.gsub(/_/, " ")
+        if label=="name"
+        elsif label=="profile url"
+        else
+          puts "  #{label}: #{student.instance_variable_get(attr)}" if student.instance_variable_get(attr)!=nil
+        end
+      end
+      # puts "  location:".colorize(:light_blue) + " #{student.location}"
+      # puts "  profile quote:".colorize(:light_blue) + " #{student.profile_quote}"
+      # puts "  bio:".colorize(:light_blue) + " #{student.bio}"
+      # puts "  twitter:".colorize(:light_blue) + " #{student.twitter}"
+      # puts "  linkedin:".colorize(:light_blue) + " #{student.linkedin}"
+      # puts "  github:".colorize(:light_blue) + " #{student.github}"
+      # puts "  blog:".colorize(:light_blue) + " #{student.blog}"
       puts "----------------------".colorize(:green)
     end
   end
