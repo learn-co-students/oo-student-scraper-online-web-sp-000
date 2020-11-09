@@ -15,34 +15,27 @@ class Scraper
    #binding.pry
   end
 
-    #<a href="students/eric-chu.html">
-    #index_url.css('a')
   def self.scrape_profile_page(profile_url)
-    profile = Nokogiri::HTML(open(profile_url))
-    #binding.pry
-      profile_hash = { twitter: profile.css('.social-icon-container').css('a')[0]['href'],
-        linkedin: profile.css('.social-icon-container').css('a')[1]['href'],
-        github: profile.css('.social-icon-container').css('a')[2]['href'],
-        blog: profile.css('.social-icon-container').css('a')[3]['href'],
-        profile_quote: profile.css('.profile-quote').text,
-        bio: profile.css('.description-holder').css('p').text
-      }
-      profile_hash
+        page = Nokogiri::HTML(open(profile_url))
+        student = {}
+
+        # student[:profile_quote] = page.css(".profile-quote")
+        # student[:bio] = page.css("div.description-holder p")
+        container = page.css(".social-icon-container a").collect{|icon| icon.attribute("href").value}
+        container.each do |link|
+          if link.include?("twitter")
+            student[:twitter] = link
+          elsif link.include?("linkedin")
+            student[:linkedin] = link
+          elsif link.include?("github")
+            student[:github] = link
+          elsif link.include?(".com")
+            student[:blog] = link
+          end
+        end
+        student[:profile_quote] = page.css(".profile-quote").text
+        student[:bio] = page.css("div.description-holder p").text
+        student
+    end
+
   end
-
-  #twitter
-  #<a href="https://twitter.com/osmentdan"><img class="social-icon" src="../assets/img/twitter-icon.png"></a>
-  #linkedin
-  #<a href="http://www.linkedin.com/in/danosment"><img class="social-icon" src="../assets/img/linkedin-icon.png"></a>
-  #github
-  #<a href="http://www.github.com/Tsundu"><img class="social-icon" src="../assets/img/github-icon.png"></a>
-  #blog
-  #
-  #profile quote
-  #<div class="profile-quote">Student at Learn</div>
-  #bio
-  #<div class="description-holder">
-    #<p>Entered US Navy after High School as an Electronics Technician.</p>
-    #</div>
-
-end
