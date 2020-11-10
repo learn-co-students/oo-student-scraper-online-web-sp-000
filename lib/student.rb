@@ -3,9 +3,11 @@ class Student
   attr_accessor :name, :location, :twitter, :linkedin, :github, :blog, :profile_quote, :bio, :profile_url
 
   @@all = []
-
-  def initialize(student_hash)
-
+#student_hash
+  def initialize(name:, location:)
+    @name = name
+    @location = location
+    @@all << self
   end
 
 
@@ -18,6 +20,6 @@ class Student
   end
 
   def self.all
-
+    @@all
   end
 end
