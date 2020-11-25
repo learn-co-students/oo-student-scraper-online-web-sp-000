@@ -5,21 +5,29 @@ class Student
   @@all = []
 
   def initialize(student_hash)
-    #@location = student_hash[:location]
-    # @name = student_hash[:name]
-    # @@all << self
+    @location = student_hash[:location]
+    @name = student_hash[:name]
+    @profile_url = student_hash[:profile_url]
+    @@all << self
   end
 
   def self.create_from_collection(students_array)
-    #will call students_array
-    #will call Scraper.scrape_index_page
+    students_array.each do |hash|
+      Student.new(hash)
+    end
   end
 
-  def add_student_attributes(attributes_hash)
 
+  def add_student_attributes(attributes_hash)
+    @bio = attributes_hash[:bio]
+    @blog = attributes_hash[:blog]
+    @linkedin = attributes_hash[:linkedin]
+    @profile_quote = attributes_hash[:profile_quote]
+    @twitter = attributes_hash[:twitter]
+    @github = attributes_hash[:github]
   end
 
   def self.all
-
+    @@all
   end
 end
