@@ -43,7 +43,6 @@ class Scraper
   end
 
   def self.get_students(html)
-    puts   self.get_page(html).css(".student-card")
     self.get_page(html).css(".student-card")
   end
 
