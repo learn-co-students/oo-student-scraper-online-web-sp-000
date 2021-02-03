@@ -18,7 +18,7 @@ class Scraper
       person = {
         :name => student.css("a .card-text-container h4").text,
         :location => student.css("a .card-text-container p").text,
-        :profile_url => student.css("a").attribute("href").text
+        :profile_url => student.css("a").attribute("href").value
       }
       students << person
     end
