@@ -36,7 +36,8 @@ class Scraper
 
 
 
-    #social media links
+    #reads the actual .social-icon-container link and assigns the correct hash or not assign a hash if link is missing
+    #children 1,3,5,7 are the ones that were found to contain the links we wanted
     [1,3,5,7].each do |x|
       link = doc.css(".social-icon-container").children[x]
       if link.to_s.include? "twitter"
