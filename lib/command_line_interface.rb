@@ -4,7 +4,7 @@ require 'nokogiri'
 require 'colorize'
 
 class CommandLineInterface
-  BASE_PATH = "https://learn-co-curriculum.github.io/student-scraper-test-page/"
+  BASE_PATH = "https://learn-co-curriculum.github.io/student-scraper-test-page/" #constant
 
   def run
     make_students
@@ -26,7 +26,7 @@ class CommandLineInterface
 
   def display_students
     Student.all.each do |student|
-      puts "#{student.name.upcase}".colorize(:blue)
+      puts "#{student.name.upcase}".colorize(:magenta)
       puts "  location:".colorize(:light_blue) + " #{student.location}"
       puts "  profile quote:".colorize(:light_blue) + " #{student.profile_quote}"
       puts "  bio:".colorize(:light_blue) + " #{student.bio}"
