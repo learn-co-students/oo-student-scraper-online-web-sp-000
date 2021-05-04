@@ -22,20 +22,24 @@ class Scraper
   def self.scrape_profile_page(profile_url)
     hash = {}
     profile = Nokogiri::HTML(open(profile_url))
-    socials = profile.css("div.social-icon-container").children.css("a")
+    socials = profile.css('.social-icon-container > a')
     hash[:profile_quote] = profile.css(".profile-quote").text
     hash[:bio] = profile.css("p").text
-    # binding.pry
-    socials.each do |social|
-      case social.children.attribute("src").value
-      when "../assets/img/twitter-icon.png"
-        hash[:twitter] = social.attribute("href").value
-      when "../assets/img/linkedin-icon.png"
-        hash[:linkedin] = social.attribute("href").value
-      when "../assets/img/github-icon.png"
-        hash[:github] = social.attribute("href").value
-      else
-        hash[:blog] = social.attribute("href").value
+    if socials
+      socials.each do |social|
+        # binding.pry
+        if social.children.attribute("src").value
+          case social.children.attribute("src").value
+          when "../assets/img/twitter-icon.png"
+            hash[:twitter] = social.attribute("href").value
+          when "../assets/img/linkedin-icon.png"
+            hash[:linkedin] = social.attribute("href").value
+          when "../assets/img/github-icon.png"
+            hash[:github] = social.attribute("href").value
+          when "../assets/img/rss-icon.png"
+            hash[:blog] = social.attribute("href").value
+          end
+        end
       end
     end
     hash
