@@ -29,12 +29,12 @@ class CommandLineInterface
       puts "#{student.name.upcase}".colorize(:blue)
       puts "  location:".colorize(:light_blue) + " #{student.location}"
       puts "  profile quote:".colorize(:light_blue) + " #{student.profile_quote}"
-      puts "  bio:".colorize(:light_blue) + " #{student.bio}"
+      puts "  bio:".colorize(:green) + " #{student.bio}".colorize(:green)
       puts "  twitter:".colorize(:light_blue) + " #{student.twitter}"
-      puts "  linkedin:".colorize(:light_blue) + " #{student.linkedin}"
+      puts "  linkedin:".colorize(:yellow) + " #{student.linkedin}".colorize(:yellow)
       puts "  github:".colorize(:light_blue) + " #{student.github}"
       puts "  blog:".colorize(:light_blue) + " #{student.blog}"
-      puts "----------------------".colorize(:green)
+      puts "----------------------".colorize(:red)
     end
   end
 
